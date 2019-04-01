@@ -1,5 +1,5 @@
-import discord
 import json
+import discord
 import PyColored as c
 
 author = """
