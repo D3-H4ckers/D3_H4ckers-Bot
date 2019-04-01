@@ -7,8 +7,7 @@ author = """
 import discord
 import json
 import PyColored as c
-
-
+from .functions import sayhi
 
 def loadJson(fileName):
     try:
@@ -49,6 +48,12 @@ init()
 @client.event
 async def on_ready():
     print(c.brightgreen("Bot successfully initialized!"))
-    print("\nBot is running...", end='')
+    print("\nBot is running...")
+
+@client.event
+async def on_message(message):
+    print(f"Message: {message.content}")
+    if message.content.startswith(bot_info['prefix'] + 'sayhibitch'):
+        sayhi(client, message.channel)
 
 client.run(bot_info['token'])
