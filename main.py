@@ -1,12 +1,13 @@
+import discord
+import json
+import PyColored as c
+
 author = """
         D3_H4ckers Bot
             Made by: D3_H4ckers
             Language: Python 3.6.7 on Ubuntu and Windows
 """
 
-import discord
-import json
-import PyColored as c
 
 def loadJson(fileName):
     try:
@@ -20,7 +21,6 @@ def loadJson(fileName):
     except:
         print(c.brightred("Failed!"))
         raise SystemError(c.brightred(f"Illegal json file ({fileName})."))
-
 
 
 def init():
@@ -41,13 +41,14 @@ def init():
         raise SystemError(c.brightred("Bot failed to initialize."))
 
 
-
 init()
+
 
 @client.event
 async def on_ready():
     print(c.brightgreen("Bot successfully initialized!"))
     print("\nBot is running...")
+
 
 @client.event
 async def on_message(message):
