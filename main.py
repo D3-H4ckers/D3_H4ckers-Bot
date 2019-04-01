@@ -54,6 +54,6 @@ async def on_ready():
 async def on_message(message):
 
     if message.content.startswith(bot_info['prefix'] + 'sayhi'):
-        await client.send_message(message.channel, "Hello world!")
+        await client.send_message(message.channel, "Hello World!")
 
 client.run(bot_info['token'])
