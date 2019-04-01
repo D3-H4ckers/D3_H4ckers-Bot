@@ -28,26 +28,27 @@ def loadJson(fileName):
 def init():
     print(author)
     print(c.bold("-----------------------\n   Loading bot files   \n-----------------------"))
+    global bot_info
     bot_info = loadJson('bot_info.json')
 
     print("\n")
 
     try:
         print(c.bold("--------------------------\n   Initializing the bot   \n--------------------------"))
+        print("Initializing...")
 
-        print("Initializing...", end='  |  ')
+        global client
         client = discord.Client()
-        client.run(bot_info['token'])
-
-        print(c.brightgreen("Done!"))
     except:
-        print(c.brightred("Failed!"))
         raise SystemError(c.brightred("Bot failed to initialize."))
 
 
 
-def main():
-    init()
+init()
 
-if __name__ == "__main__":
-    main()
+@client.event
+async def on_ready():
+    print(c.brightgreen("Bot successfully initialized!"))
+    print("\nBot is running...", end='')
+
+client.run(bot_info['token'])
