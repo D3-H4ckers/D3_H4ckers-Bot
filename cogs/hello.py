@@ -11,12 +11,12 @@ class Hello(commands.Cog):
 
     @commands.command(pass_context=True)
     async def hi(self, ctx):
-        await bot.say(f'Hello {ctx.message.author.name}!')
+        await ctx.send(f'Hello {ctx.message.author.name}!')
 
     @commands.command()
-    async def about(self):
-        await bot.say(f'Name : {self.config.name}')
-        await bot.say(f'Developers : {self.config.developers}')
+    async def about(self, ctx):
+        await ctx.send(f'Name : {self.config.name}')
+        await ctx.send(f'Developers : {self.config.developers}')
 
 
 def setup(bot):
