@@ -1,59 +1,39 @@
 import json
 import discord
 import PyColored as c
-
-author = """
-        D3_H4ckers Bot
-            Made by: D3_H4ckers
-            Language: Python 3.6.7 on Ubuntu and Windows
-"""
+from discord.ext import commands
+from collections import namedtuple
 
 
-def loadJson(fileName):
+def getJSON(file: str) -> json:
     try:
-        print(f"Loading {fileName}", end='  |  ')
+        print(c.bold("-----------------------\n   Loading bot files   \n-----------------------"))
+        return json.load(open(file), object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+    except FileNotFoundError:
+        raise FileNotFoundError(c.brightred(f'{file} file was not found.'))
 
-        with open(fileName) as data:
-            output = json.load(data)
-
-        print(c.brightgreen("Done!"))
-        return output
-    except:
-        print(c.brightred("Failed!"))
-        raise SystemError(c.brightred(f"Illegal json file ({fileName})."))
+config = getJSON('config.json')
+bot = commands.Bot(command_prefix=config.prefix, status=discord.Status.idle)
+bot.remove_command('help')
 
 
-def init():
-    print(author)
-    print(c.bold("-----------------------\n   Loading bot files   \n-----------------------"))
-    global bot_info
-    bot_info = loadJson('bot_info.json')
-
-    print("\n")
-
-    try:
-        print(c.bold("--------------------------\n   Initializing the bot   \n--------------------------"))
-        print("Initializing...")
-
-        global client
-        client = discord.Client()
-    except:
-        raise SystemError(c.brightred("Bot failed to initialize."))
-
-
-init()
-
-
-@client.event
+@bot.event
 async def on_ready():
-    print(c.brightgreen("Bot successfully initialized!"))
-    print("\nBot is running...")
+    print(c.brightgreen('Bot successfully initialized!'))
+    await bot.change_presence(status=discord.Status.online)
 
 
-@client.event
-async def on_message(message):
+@bot.command(pass_context=True)
+async def hi(ctx):
+    await bot.say(f'Hello {ctx.message.author.name}!')
 
-    if message.content.startswith(bot_info['prefix'] + 'sayhi'):
-        await client.send_message(message.channel, "Hello World!")
 
-client.run(bot_info['token'])
+@bot.command()
+async def about():
+    await bot.say(f'Name : {config.name}')
+    await bot.say(f'Developers : {config.developers}')
+
+try:
+    bot.run(config.token)
+except:
+    raise SystemError(c.brightred('Bot failed to be initialized.'))
