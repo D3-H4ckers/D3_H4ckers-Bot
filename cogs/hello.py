@@ -24,22 +24,9 @@ class Hello(commands.Cog):
         channel = ctx.author.voice.channel
         await channel.connect(timeout=60.0, reconnect=True)
 
-
     @commands.command(pass_context=True)
     async def leave(self, ctx):
         await ctx.voice_client.disconnect()
-        
-    @commands.command(pass_context=True)
-    async def ping(self, ctx):
-        await ctx.send(f'Pong')
-
-    @commands.command(pass_context=True)
-    async def coinflip(self, ctx):
-        flip=random.randint(0,1)
-        if flip==0:
-            await ctx.send(f"Heads")
-        if flip==1:
-            await ctx.send(f"Tails")
 
     @commands.command(pass_context=True)
     async def ping(self, ctx):
@@ -47,7 +34,7 @@ class Hello(commands.Cog):
 
     @commands.command(pass_context=True)
     async def coinflip(self, ctx):
-        flip = random.randint(0,1)
+        flip = random.randint(0, 1)
         if flip == 0:
             await ctx.send('Heads', file=discord.File('images/heads.png'))
         else:
