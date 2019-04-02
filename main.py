@@ -1,5 +1,4 @@
 import os
-import json
 import discord
 import PyColored as c
 from util import default
