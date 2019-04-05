@@ -1,3 +1,4 @@
 discord.py
 pycolored
 PyNaCl
+youtube_dl
