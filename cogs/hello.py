@@ -20,15 +20,6 @@ class Hello(commands.Cog):
         await ctx.send(f'Developers : {self.config.developers}')
 
     @commands.command(pass_context=True)
-    async def join(self, ctx):
-        channel = ctx.author.voice.channel
-        await channel.connect(timeout=60.0, reconnect=True)
-
-    @commands.command(pass_context=True)
-    async def leave(self, ctx):
-        await ctx.voice_client.disconnect()
-
-    @commands.command(pass_context=True)
     async def ping(self, ctx):
         await ctx.send('Pong')
 
