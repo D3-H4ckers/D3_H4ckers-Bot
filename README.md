@@ -5,4 +5,5 @@
 ## Install Dependencies
 
 ```pip install -r requirements.txt```
+
 ```python3 -m pip install -U git+https://github.com/Rapptz/discord.py@rewrite```
